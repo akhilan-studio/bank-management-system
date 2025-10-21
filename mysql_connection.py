@@ -4,8 +4,6 @@ from tkinter import messagebox
 import mysql.connector as m
 import account
 import random
-'''CREATE TABLE log (accno INT,action VARCHAR(25),amount INT,transfered_to INT,date VARCHAR(25));'''
-'''CREATE TABLE main (AccNo INT,Name VARCHAR(50),DOB VARCHAR(25),Password VARCHAR(20),Balance INT);'''
  
 my=m.connect(host='localhost',user='root',passwd='bloodgod@609',database='bank')
 
