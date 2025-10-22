@@ -17,12 +17,7 @@ def show_account(root,accno):
     ttk.Button(frm, text="Deposit", command=lambda: (acc.destroy(),show_deposit(acc,accno,root))).grid(column=0, row=1)
     ttk.Button(frm, text="Withdraw", command=lambda: (acc.destroy(),show_withdraw(root,accno))).grid(column=1, row=1)
     ttk.Button(frm, text="Transfer", command=lambda: (acc.destroy(),show_transfer(root,accno))).grid(column=0, row=2, columnspan=2)
-    ttk.Button(frm, text="Logout", command=lambda: logout(acc, root)).grid(column=0, row=3, columnspan=2, pady=10)
-    
-
-def logout(account_win, root):
-    account_win.destroy()
-    root.deiconify()
+    ttk.Button(frm, text="Logout", command=lambda: (acc.destroy(),root.deiconify())).grid(column=0, row=3, columnspan=2, pady=10)
 
 
 
@@ -47,6 +42,7 @@ def depocheck(acc,bal):
         messagebox.showerror('Invalid ammount','entered amount should number')
 
 
+
 def show_transfer(root,accno):
     tf = Tk()
     tf.title("Transfer")
@@ -56,27 +52,19 @@ def show_transfer(root,accno):
     ttk.Label(frm, text="Recipient Acc No:").grid(column=0, row=0)
     accnoto=StringVar(tf)
     ttk.Entry(frm,textvariable=accnoto).grid(column=1, row=0)
+    
     ttk.Label(frm, text="Enter amount:").grid(column=0, row=1)
     amt=StringVar(tf)
     ttk.Entry(frm,textvariable=amt).grid(column=1, row=1)
 
-    ttk.Button(frm, text="Confirm",command=lambda: (tf.destroy(),transfer_check(accno,accnoto.get(),amt.get()),show_account(root, accno))).grid(column=0, row=2, columnspan=2, pady=5)
+    ttk.Button(frm, text="Confirm",command=lambda: (transfer_check(accno,accnoto.get(),amt.get(),tf,root))).grid(column=0, row=2, columnspan=2, pady=5)
     ttk.Button(frm, text="Back",command=lambda: (tf.destroy(), show_account(root,accno))).grid(column=0, row=3, columnspan=2)
 
-def transfer_check(accnofr,accnoto,amt):
-    if amt.isdigit():
-        amt=int(amt)
-        if m.balance(accnofr)<amt:
-            messagebox.showerror('Invalid amount','you do not have enough balance')
-        elif amt<0:
-            messagebox.showerror('Invalid ammount','entered amount cannot be negative')
-        elif m.balance(accnoto)==None:
-            messagebox.showerror('Invalid account','account does not exist')
-        else:
-            m.Transfer(accnofr,accnoto,amt)
+def transfer_check(accnofr,accnoto,amt,tf,root):
+           if m.Transfer(accnofr,accnoto,amt):
+               tf.destroy()
+               show_account(root, accnofr)
     
-    else:
-        messagebox.showerror('invalid value','pls enter a number')
 def show_withdraw(root,acc):
     wd = Tk()
     wd.title("Withdraw")
