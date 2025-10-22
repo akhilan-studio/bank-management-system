@@ -53,7 +53,7 @@ def balance(accno):
     global my
     cu1=my.cursor()
     ex="select balance from main where accno=%s;"
-    cu1.execute(ex,(accno))
+    cu1.execute(ex,(accno,))
     data=cu1.fetchone()
     cu1.close()
     if data!=None:
@@ -62,21 +62,23 @@ def balance(accno):
 
 def loginchecker(passwd,accno,root):
     global my
-    root.withdraw()
-    if accno.isdigit():
-        accno=int(accno)
-        cu1=my.cursor()
-        ex="select accno,password from main where accno=%s and password=%s;"
-        cu1.execute(ex,(accno,passwd))
-        data=cu1.fetchone()
+    if not accno.isdigit():
+        messagebox.showerror('Invalid value', 'Enter a valid account number')
+        return
+
+    accno = int(accno)
+    cu1 = my.cursor()
+    try:
+        cu1.execute("SELECT accno FROM main WHERE accno=%s AND password=%s", (accno, passwd))
+        result = cu1.fetchone()
+    finally:
         cu1.close()
-        if data:
-            account.show_account(root,accno)
-        else:
-            messagebox.showerror("Login Failed", "Invalid account number or password")
-            root.deiconify()
+
+    if result:
+        root.withdraw()
+        account.show_account(root, accno)
     else:
-        messagebox.showerror('invalid value','enter an account no')
+        messagebox.showerror("Login Failed", "Invalid account number or password")
 
 def Accgen(name,DOB,passwd,root,nu):
     global my
