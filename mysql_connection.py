@@ -70,7 +70,7 @@ def loginchecker(passwd,accno,root):
         messagebox.showerror("Login Failed", "Invalid account number or password")
         root.deiconify()
 
-def Accgen(name,DOB,passwd,root):
+def Accgen(name,DOB,passwd,root,nu):
     global my
     cu1=my.cursor()
     #no two same account no presence logic
@@ -81,25 +81,28 @@ def Accgen(name,DOB,passwd,root):
         if cu1.fetchall()==[]:
             break
     cu1.close()
-    
-    #adding account to new table
-    ex="insert into main values({x},'{name}','{DOB}','{passwd}',0);"
-    cu2=my.cursor()
-    cu2.execute(ex.format(x=x,name=name,DOB=DOB,passwd=passwd))
-    my.commit()
-    cu2.close()
-    
-    #adding to log
-    cu2=my.cursor()
-    cu2.execute('insert into log values({accno},"account created",Null,Null,sysdate())'.format(accno=x))
-    my.commit()
-    cu2.close()
-    
-    #showing account number
-    x='accountNo:'+str(x)
-    ne=Toplevel(root)
-    ne.title("New Account")
-    frm = ttk.Frame(ne, padding=(90,15,90,15))
-    frm.grid()
-    ttk.Label(frm, text=x).grid(column=0, row=0)
-    ttk.Button(frm, text="main page", command=lambda: (ne.destroy(),root.deiconify())).grid(column=0, row=4, columnspan=2)
+    try:
+        #adding account to new table
+        ex="insert into main values({x},'{name}','{DOB}','{passwd}',0);"
+        cu2=my.cursor()
+        cu2.execute(ex.format(x=x,name=name,DOB=DOB,passwd=passwd))
+        my.commit()
+        cu2.close()
+        
+        #adding to log
+        cu2=my.cursor()
+        cu2.execute('insert into log values({accno},"account created",Null,Null,sysdate())'.format(accno=x))
+        my.commit()
+        cu2.close()
+        
+        #showing account number
+        nu.destroy()
+        x='accountNo:'+str(x)
+        ne=Toplevel(root)
+        ne.title("New Account")
+        frm = ttk.Frame(ne, padding=(90,15,90,15))
+        frm.grid()
+        ttk.Label(frm, text=x).grid(column=0, row=0)
+        ttk.Button(frm, text="main page", command=lambda: (ne.destroy(),root.deiconify())).grid(column=0, row=4, columnspan=2)
+    except:
+        messagebox.showerror('invalid input','values are wrong try again')
