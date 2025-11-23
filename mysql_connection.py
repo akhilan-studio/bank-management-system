@@ -108,3 +108,34 @@ def Accgen(name,DOB,passwd,root,nu):
         ttk.Button(frm, text="main page", command=lambda: (ne.destroy(),root.deiconify())).grid(column=0, row=4, columnspan=2)
     except:
         messagebox.showerror('invalid input','values are wrong try again')
+
+def all_accounts():
+    global my
+    cu=my.cursor()
+    cu.execute("SELECT * FROM main;")
+    data=cu.fetchall()
+    cu.close()
+    return data
+
+def logs():
+    global my
+    cu=my.cursor()
+    cu.execute("SELECT * FROM log ORDER BY date DESC;")
+    data=cu.fetchall()
+    cu.close()
+    return data
+
+def account(accno):
+    global my
+    cu=my.cursor()
+    cu.execute("SELECT * FROM main WHERE accno=%s;",(accno,))
+    data = cu.fetchone()
+    cu.close()
+    return data
+
+def update_acc(accno, name, dob, password):
+    global my
+    cu=my.cursor()
+    cu.execute("UPDATE main SET name=%s,dob=%s,password=%s WHERE accno=%s;",(name, dob, password, accno))
+    my.commit()
+    cu.close()
