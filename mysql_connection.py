@@ -125,7 +125,7 @@ def logs():
     cu.close()
     return data
 
-def account(accno):
+def scr_account(accno):
     global my
     cu=my.cursor()
     cu.execute("SELECT * FROM main WHERE accno=%s;",(accno,))

@@ -93,7 +93,7 @@ def search_account(parent):
         if not acc.get().isdigit():
             messagebox.showerror("Invalid","Enter a valid account number")
             return
-        data = m.account(acc.get())
+        data = m.scr_account(acc.get())
         for widget in result_frame.winfo_children():
             widget.destroy()
         if data is None:
