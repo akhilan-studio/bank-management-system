@@ -83,7 +83,6 @@ def loginchecker(passwd,accno,root):
 def Accgen(name,DOB,passwd,root,nu):
     global my
     cu1=my.cursor()
-    #no two same account no presence logic
     while True:
         accno=random.randint(100,999)
         ex='select accno from main where accno=%s;'
@@ -97,7 +96,7 @@ def Accgen(name,DOB,passwd,root,nu):
         my.commit()
         cu1.close()
         
-        #showing account number
+
         nu.destroy()
         x='accountNo:'+str(x)
         ne=Toplevel(root)
@@ -105,14 +104,14 @@ def Accgen(name,DOB,passwd,root,nu):
         frm = ttk.Frame(ne, padding=(90,15,90,15))
         frm.grid()
         ttk.Label(frm, text=x).grid(column=0, row=0)
-        ttk.Button(frm, text="main page", command=lambda: (ne.destroy(),root.deiconify())).grid(column=0, row=4, columnspan=2)
+        ttk.Button(frm, text="main page", command=lambda: (ne.destroy(),root.deiconify())).grid(column=0,row=4,columnspan=2)
     except:
         messagebox.showerror('invalid input','values are wrong try again')
 
 def all_accounts():
     global my
     cu=my.cursor()
-    cu.execute("SELECT * FROM main;")
+    cu.execute("select * from main;")
     data=cu.fetchall()
     cu.close()
     return data
@@ -120,7 +119,7 @@ def all_accounts():
 def logs():
     global my
     cu=my.cursor()
-    cu.execute("SELECT * FROM log ORDER BY date DESC;")
+    cu.execute("select * from log order by date desc;")
     data=cu.fetchall()
     cu.close()
     return data
@@ -128,14 +127,14 @@ def logs():
 def scr_account(accno):
     global my
     cu=my.cursor()
-    cu.execute("SELECT * FROM main WHERE accno=%s;",(accno,))
-    data = cu.fetchone()
+    cu.execute("select * from main where accno=%s;",(accno,))
+    data=cu.fetchone()
     cu.close()
     return data
 
 def update_acc(accno, name, dob, password):
     global my
     cu=my.cursor()
-    cu.execute("UPDATE main SET name=%s,dob=%s,password=%s WHERE accno=%s;",(name, dob, password, accno))
+    cu.execute("update main set name=%s,dob=%s,password=%s where accno=%s;",(name,dob,password,accno))
     my.commit()
     cu.close()

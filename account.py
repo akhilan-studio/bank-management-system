@@ -35,11 +35,11 @@ def show_deposit(account_win,acc,root):
 def depocheck(acc,bal):
     if bal.isdigit():
         if int(bal)<0:
-            messagebox.showerror('Invalid ammount','entered amount cannot be negative')
+            messagebox.showerror('Invalid amount','entered amount cannot be negative')
         else:
             m.edit_balance(acc,bal)
     else:
-        messagebox.showerror('Invalid ammount','entered amount should number')
+        messagebox.showerror('Invalid amount','entered amount should number')
 
 
 
@@ -80,7 +80,7 @@ def withcheck(acc,bal):
     if bal.isdigit()==False:
         messagebox.showerror('invalid value','pls enter a number')
     elif int(bal)<0:
-        messagebox.showerror('Invalid ammount','entered amount cannot be negative')
+        messagebox.showerror('Invalid amount','entered amount cannot be negative')
     elif m.balance(acc)<int(bal):
         messagebox.showerror('Invalid amount','you do not have enough balance')
     else:
