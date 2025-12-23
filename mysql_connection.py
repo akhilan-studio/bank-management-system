@@ -86,19 +86,19 @@ def Accgen(name,DOB,passwd,root,nu):
     while True:
         accno=random.randint(100,999)
         ex='select accno from main where accno=%s;'
-        cu1.execute(ex,(x))
+        cu1.execute(ex,(accno,))
         if cu1.fetchall()==[]:
             break
     try:
         ex="insert into main values(%s,%s,%s,%s,0);"
         cu1.execute(ex,(accno,name,DOB,passwd))
-        cu1.execute('insert into log values(%s,"account created",Null,Null,sysdate())',(accno))
+        cu1.execute('insert into log values(%s,"account created",Null,Null,sysdate())',(accno,))
         my.commit()
         cu1.close()
         
 
         nu.destroy()
-        x='accountNo:'+str(x)
+        x = 'accountNo: ' + str(accno)
         ne=Toplevel(root)
         ne.title("New Account")
         frm = ttk.Frame(ne, padding=(90,15,90,15))

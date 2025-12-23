@@ -57,10 +57,10 @@ def view_all_accounts(parent):
     frm = ttk.Frame(win)
     frm.grid()
 
-    colms = ("accno","name","dob","balance")
+    colms = ("Accno","Name","DOB","Balance")
     tree = ttk.Treeview(frm,columns=colms,show='headings')
     for c in colms:
-        tree.heading(c,text=c.title())
+        tree.heading(c,text=c)
     tree.grid(row=0,column=0,sticky='nsew')
 
     sb = ttk.Scrollbar(frm,orient=VERTICAL,command=tree.yview)

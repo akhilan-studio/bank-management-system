@@ -23,7 +23,7 @@ def show_new_user(root):
     inrfrm.grid(column=1,row=1)
     ttk.Spinbox(inrfrm,from_=1,to=31,textvariable=day,width=5).grid(column=0,row=0)
     ttk.Spinbox(inrfrm,from_=1,to=12,textvariable=month,width=5).grid(column=1,row=0)
-    ttk.Spinbox(inrfrm,from_=1800,to=2025,textvariable=year,width=5).grid(column=2,row=0)
+    ttk.Spinbox(inrfrm,from_=1900,to=2025,textvariable=year,width=5).grid(column=2,row=0)
     
     ttk.Label(frm, text="Password:").grid(column=0,row=2)
     passwd=StringVar()
