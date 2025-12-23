@@ -15,7 +15,7 @@ def Transfer(accnofr,accnoto,amt):
     elif balance(accnofr)<int(amt):
         messagebox.showerror('Invalid amount','you do not have enough balance')
     elif int(amt)<0:
-        messagebox.showerror('Invalid ammount','entered amount cannot be negative')
+        messagebox.showerror('Invalid amount','entered amount cannot be negative')
     elif balance(accnoto)==None:
         messagebox.showerror('Invalid account','account does not exist')
     elif accnoto==accnofr:
@@ -90,9 +90,9 @@ def Accgen(name,DOB,passwd,root,nu):
         if cu1.fetchall()==[]:
             break
     try:
-        ex="insert into main values(%s,%s,%s,%s,0);"
+        ex="INSERT INTO main (accno,name,dob,balance,password) VALUES (%s,%s,%s,0,%s)"
         cu1.execute(ex,(accno,name,DOB,passwd))
-        cu1.execute('insert into log values(%s,"account created",Null,Null,sysdate())',(accno,))
+        cu1.execute("INSERT INTO log VALUES (%s,'account created',NULL,NULL,SYSDATE())",(accno,))
         my.commit()
         cu1.close()
         
