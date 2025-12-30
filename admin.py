@@ -3,8 +3,7 @@ from tkinter import ttk,messagebox
 import mysql_connection as m
 
 
-ADMIN_USER = "admin"
-ADMIN_PASS = "1234"
+
 
 def show_admin_login(root):
     login = Toplevel(root)
@@ -24,7 +23,8 @@ def show_admin_login(root):
     ttk.Button(frm,text="Cancel",command=login.destroy).grid(column=0,row=3,columnspan=2)
 
 def try_login(uname,passwd,root,login):
-    global ADMIN_PASS,ADMIN_USER
+    ADMIN_USER = "admin"
+    ADMIN_PASS = "1234"
     if uname==ADMIN_USER and passwd==ADMIN_PASS:
         root.withdraw()
         login.destroy()
@@ -102,7 +102,7 @@ def search_account(parent):
             ttk.Label(result_frame,text=f"Accno:{data[0]}").grid()
             ttk.Label(result_frame,text=f"Name:{data[1]}").grid()
             ttk.Label(result_frame,text=f"DOB:{data[2]}").grid()
-            ttk.Label(result_frame,text=f"Balance:{data[4]}").grid()
+            ttk.Label(result_frame,text=f"Balance:{data[3]}").grid()
 
     ttk.Button(frm,text="Search",command=do_search).grid(column=0,row=1,columnspan=2)
     ttk.Button(frm,text="Back",command=lambda:(win.destroy(),parent.deiconify())).grid(column=0,row=3,padx=10)
@@ -159,7 +159,7 @@ def edit_account_page(parent):
             return
         name_var.set(data[1])
         dob_var.set(str(data[2]))
-        pass_var.set(data[3])
+        pass_var.set(data[4])
 
     ttk.Button(frm, text="Load",command=fetch).grid(column=0,row=1,columnspan=2,pady=5)
 
